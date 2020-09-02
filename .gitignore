@@ -25,4 +25,7 @@ v
 xcuserdata
 *.moved-aside
 
-
+.idea
+.gradle
+.cxx
+local.properties

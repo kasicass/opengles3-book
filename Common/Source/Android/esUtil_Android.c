@@ -40,6 +40,7 @@
 #include <android/log.h>
 #include <android_native_app_glue.h>
 #include <time.h>
+#include <string.h>
 #include "esUtil.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "esUtil", __VA_ARGS__))
@@ -61,6 +62,12 @@ static float GetCurrentTime()
    double curTimeInSeconds = clockRealTime.tv_sec + ( double ) clockRealTime.tv_nsec / 1e9;
    return ( float ) curTimeInSeconds;
 }
+
+///
+//  Global extern.  The application must declare this function
+//  that runs the application.
+//
+extern int esMain ( ESContext *esContext );
 
 ///
 // HandleCommand()
@@ -116,12 +123,6 @@ static void HandleCommand ( struct android_app *pApp, int32_t cmd )
    }
 }
 
-///
-//  Global extern.  The application must declare this function
-//  that runs the application.
-//
-extern int esMain ( ESContext *esContext );
-
 //////////////////////////////////////////////////////////////////
 //
 //  Public Functions
@@ -137,9 +138,6 @@ void android_main ( struct android_app *pApp )
 {
    ESContext esContext;
    float lastTime;
-
-   // Make sure glue isn't stripped.
-   app_dummy();
 
    // Initialize the context
    memset ( &esContext, 0, sizeof ( ESContext ) );
